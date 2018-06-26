@@ -1,22 +1,23 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 
 namespace GrooMono.Core.GrooGame
 {
-    public delegate void ManagerUpdateEventHandler(GameTime gameTime);
+    public delegate void ManagerUpdateEventHandler(GameTime gameTime, KeyboardState keyboardState);
 
     public class ManagerUpdate : Manager
     {
         public event ManagerUpdateEventHandler OnUpdate;
 
-        internal void ManageNow(GameTime gameTime)
+        internal void ManageNow(GameTime gameTime, KeyboardState keyboardState)
         {
-            OnOnInitialization(gameTime);
+            OnOnUpdate(gameTime, keyboardState);
             base.ManageNow();
         }
 
-        private void OnOnInitialization(GameTime gametime)
+        private void OnOnUpdate(GameTime gametime, KeyboardState keyboardState)
         {
-            OnUpdate?.Invoke(gametime);
+            OnUpdate?.Invoke(gametime, keyboardState);
         }
     }
 }

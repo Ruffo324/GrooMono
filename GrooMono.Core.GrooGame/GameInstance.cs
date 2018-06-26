@@ -14,11 +14,22 @@ namespace GrooMono.Core.GrooGame
         public readonly ManagerDraw ManagerDraw = new ManagerDraw();
         public readonly ManagerInitialization ManagerInitialization = new ManagerInitialization();
         public readonly ManagerUpdate ManagerUpdate = new ManagerUpdate();
-        public KeyboardState KeyboardState;
+
+        /// <summary>
+        /// KeyboardState from last Game update.
+        /// </summary>
+        public KeyboardState LastKeyboardState;
 
         protected GraphicsDeviceManager Graphics;
 
+        /// <summary>
+        /// Size of game window.
+        /// </summary>
         public Size ScreenSize;
+
+        /// <summary>
+        /// Sprite batch of the game.
+        /// </summary>
         protected SpriteBatch SpriteBatch;
 
         public GameInstance(string contentRootDirectory = "Content")
@@ -67,11 +78,11 @@ namespace GrooMono.Core.GrooGame
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            // Set KeyboardState.
-            KeyboardState = Keyboard.GetState();
+            // Set LastKeyboardState.
+            LastKeyboardState = Keyboard.GetState();
 
             // Call event & base.
-            ManagerUpdate.ManageNow(gameTime);
+            ManagerUpdate.ManageNow(gameTime, LastKeyboardState);
             base.Update(gameTime);
         }
 

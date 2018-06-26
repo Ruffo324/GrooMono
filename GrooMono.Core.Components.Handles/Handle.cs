@@ -7,6 +7,7 @@ using GrooMono.Core.Components.Handles.Exceptions;
 using GrooMono.Core.GrooGame;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 // ReSharper disable once CheckNamespace
 namespace GrooMono.Core.Components
@@ -24,7 +25,7 @@ namespace GrooMono.Core.Components
 
         public bool Drawable { get; set; } = true;
 
-        private void OnUpdate(GameTime gameTime)
+        private void OnUpdate(GameTime gameTime, KeyboardState keyboardState)
         {
             // No content rule active, and current content is not the original content -> change to original content.
             if (!_contentRules.Any(pair =>

@@ -4,6 +4,7 @@ using System.Linq;
 using GrooMono.Core.Components.Entities;
 using GrooMono.Core.GrooGame;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 
 // ReSharper disable once CheckNamespace
 namespace GrooMono.Core.Components
@@ -35,7 +36,7 @@ namespace GrooMono.Core.Components
             set => _movementSpeed = ScaleToWindowSize(value);
         }
 
-        private void OnUpdate(GameTime gameTime)
+        private void OnUpdate(GameTime gameTime, KeyboardState keyboardState)
         {
             float elapsedTime = (float) gameTime.ElapsedGameTime.TotalSeconds;
 
