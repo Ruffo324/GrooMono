@@ -16,22 +16,26 @@ namespace GrooMono.Core.Components
         public readonly float Scale;
         public readonly SizeF Size;
 
-        public readonly Texture2D Texture;
+        public Texture2D Texture;
         public Geometric2DState Movement;
         public Geometric2DState Position;
 
         public Sprite2D(string contentName, float scale)
         {
-            GameInstance gameInstance = GameInstance.Instance;
             // Load content & set values.
             ContentName = contentName;
-            Texture = gameInstance.Content.Load<Texture2D>(ContentName);
+            Texture = GameInstance.Instance.Content.Load<Texture2D>(ContentName);
             Scale = scale;
             Size = new SizeF(Texture.Width * scale, Texture.Height * scale);
 
             // Set Position and Movement to zero.
             Position = new Geometric2DState(0, 0);
             Movement = new Geometric2DState(0, 0);
+        }
+
+        public void ChangeContent(string contentName)
+        {
+            Texture = GameInstance.Instance.Content.Load<Texture2D>(contentName);
         }
 
         public static void SetDefaultHitboxScale(float hitboxScale)
@@ -75,7 +79,6 @@ namespace GrooMono.Core.Components
         public static float ScaleToWindowSize(float f)
         {
             return (float) (GameInstance.Instance.ScreenSize.Width / GameInstance.Instance.ScreenSize.Height) * f;
-            //return (float) (GameInstance.Instance.ScreenSize.Width / (GameInstance.Instance.ScreenSize.Height * 0.03));
         }
     }
 }

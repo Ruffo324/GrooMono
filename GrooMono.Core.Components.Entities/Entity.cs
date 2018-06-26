@@ -1,4 +1,7 @@
-﻿using GrooMono.Core.Components.Entities;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using GrooMono.Core.Components.Entities;
 using GrooMono.Core.GrooGame;
 using Microsoft.Xna.Framework;
 

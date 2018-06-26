@@ -46,7 +46,10 @@ namespace GrooMono.Games.PinguRush
         {
             _backgroundHandle =
                 new Handle("sprites/ice", 1f) {Position = new Geometric2DState(0, ScreenSize.Height * Skyratio)};
+
+            // Add main (pinguin) and it's content rules.
             _pinguinEntity = new Entity("sprites/pinguin", 0.1f);
+            _pinguinEntity.AddContentRule("sprites/pinguin_jump", (entity) => Math.Abs(entity.Movement.Y) > 0.1);
         }
     }
 }
