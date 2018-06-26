@@ -20,18 +20,21 @@ namespace GrooMono.Core.GrooGame
         public Size ScreenSize;
         protected SpriteBatch SpriteBatch;
 
-        public GameInstance()
+        public GameInstance(string contentRootDirectory = "Content")
         {
+            // Instace already setten -> exception.
             if (Instance != null)
                 throw new GameInstanceException("One game can only have one GameInstance!");
 
+            // Setup graphics & content.
             Graphics = new GraphicsDeviceManager(this);
-            Content.RootDirectory = "Content"; //TODO: Check this
+            Content.RootDirectory = contentRootDirectory;
 
+            // Remeber current instance.
             Instance = this;
         }
 
-        public float Skyratio { get; set; }
+        public float Skyratio { get; set; } = 0.9333f;
 
         protected override void Initialize()
         {
@@ -63,10 +66,8 @@ namespace GrooMono.Core.GrooGame
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            // Call event & base.
             ManagerUpdate.ManageNow(gameTime);
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed ||
-                Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
             base.Update(gameTime);
         }
 

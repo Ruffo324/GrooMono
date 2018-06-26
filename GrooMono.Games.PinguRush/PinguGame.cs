@@ -1,4 +1,5 @@
-﻿using GrooMono.Core.Components;
+﻿using System;
+using GrooMono.Core.Components;
 using GrooMono.Core.Components.Sprites.Models;
 using GrooMono.Core.GrooGame;
 using Microsoft.Xna.Framework;
@@ -16,13 +17,7 @@ namespace GrooMono.Games.PinguRush
 
         public PinguGame()
         {
-            Skyratio = 0.9333f; // TODO: Wo anders hin halt
             ManagerInitialization.OnInitialization += OnInitialization;
-
-
-            //ManagerDraw.OnDraw += OnDraw;
-            //ManagerContent.OnContentLoad += OnContentLoad;
-            //ManagerInitialization.OnInitialization += OnInitialitzation;
             ManagerUpdate.OnUpdate += OnUpdate;
         }
 
@@ -34,21 +29,8 @@ namespace GrooMono.Games.PinguRush
             if (state.IsKeyDown(Keys.Escape))
                 Exit();
 
-            // Jump
-            //if (state.IsKeyDown(Keys.Space) || state.IsKeyDown(Keys.Up))
-            //{
-            //    // Jump if the Space is pressed but not held and the dino is on the floor
-            //    if (!_spaceDown && _pinguinEntity.Position.Y >= ScreenSize.Height * Skyratio)
-            //        _pinguinEntity.Movement.Y -= _pinguinEntity.MovementSpeed;
-            //
-            //    _spaceDown = true;
-            //}
-            //else
-            //{
-            //    _spaceDown = false;
-            //}
-
-            if ((state.IsKeyDown(Keys.Space) || state.IsKeyDown(Keys.Up)) && _pinguinEntity.Movement.Y == 0f)
+            // Player jump
+            if ((state.IsKeyDown(Keys.Space) || state.IsKeyDown(Keys.Up)) && Math.Abs(_pinguinEntity.Movement.Y) < 0.1)
                 _pinguinEntity.Move.Up();
 
             // Handle left and right
