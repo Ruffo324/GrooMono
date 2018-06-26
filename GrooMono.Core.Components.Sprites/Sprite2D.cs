@@ -14,28 +14,31 @@ namespace GrooMono.Core.Components
         private readonly float _hitboxscale = _hitboxScaleDefault;
         public readonly string ContentName;
         public readonly float Scale;
-        public readonly SizeF Size;
+        public Geometric2DState Movement = new Geometric2DState(0, 0);
+        public Geometric2DState Position = new Geometric2DState(0, 0);
+        public SizeF Size;
 
         public Texture2D Texture;
-        public Geometric2DState Movement;
-        public Geometric2DState Position;
 
         public Sprite2D(string contentName, float scale)
         {
             // Load content & set values.
             ContentName = contentName;
-            Texture = GameInstance.Instance.Content.Load<Texture2D>(ContentName);
             Scale = scale;
-            Size = new SizeF(Texture.Width * scale, Texture.Height * scale);
-
-            // Set Position and Movement to zero.
-            Position = new Geometric2DState(0, 0);
-            Movement = new Geometric2DState(0, 0);
+            ChangeContent(contentName);
         }
 
         public void ChangeContent(string contentName)
         {
+            SizeF oldSize = Size;
+
+            // Load new texture, set size.
             Texture = GameInstance.Instance.Content.Load<Texture2D>(contentName);
+            Size = new SizeF(Texture.Width * Scale, Texture.Height * Scale);
+
+            // Adjust position to new texture size.
+            Position.Y = Position.Y + (oldSize.Height - Size.Height);
+            Position.X = Position.X + (oldSize.Width - Size.Width);
         }
 
         public static void SetDefaultHitboxScale(float hitboxScale)
@@ -71,14 +74,14 @@ namespace GrooMono.Core.Components
         }
 
         /// <summary>
-        /// Scales the given float to the game window size.
-        /// //TODO: Make this function working correctly.
+        ///     Scales the given float to the game window size.
+        ///     //TODO: Make this function working correctly.
         /// </summary>
         /// <param name="f">float value wich should be scaled.</param>
         /// <returns>Scaled float value.</returns>
         public static float ScaleToWindowSize(float f)
         {
-            return (float) (GameInstance.Instance.ScreenSize.Width / GameInstance.Instance.ScreenSize.Height) * f;
+            return GameInstance.Instance.ScreenSize.Width / GameInstance.Instance.ScreenSize.Height * f;
         }
     }
 }

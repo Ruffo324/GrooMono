@@ -14,6 +14,7 @@ namespace GrooMono.Core.GrooGame
         public readonly ManagerDraw ManagerDraw = new ManagerDraw();
         public readonly ManagerInitialization ManagerInitialization = new ManagerInitialization();
         public readonly ManagerUpdate ManagerUpdate = new ManagerUpdate();
+        public KeyboardState KeyboardState;
 
         protected GraphicsDeviceManager Graphics;
 
@@ -66,6 +67,9 @@ namespace GrooMono.Core.GrooGame
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            // Set KeyboardState.
+            KeyboardState = Keyboard.GetState();
+
             // Call event & base.
             ManagerUpdate.ManageNow(gameTime);
             base.Update(gameTime);

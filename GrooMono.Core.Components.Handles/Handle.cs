@@ -19,9 +19,24 @@ namespace GrooMono.Core.Components
         public Handle(string contentName, float scale) : base(contentName, scale)
         {
             GameInstance.Instance.ManagerDraw.OnDraw += ManagerDrawOnOnDraw;
+            GameInstance.Instance.ManagerUpdate.OnUpdate += OnUpdate;
         }
 
         public bool Drawable { get; set; } = true;
+
+        private void OnUpdate(GameTime gameTime)
+        {
+            // No content rule active, and current content is not the original content -> change to original content.
+            if (!_contentRules.Any(pair =>
+            {
+                if (!pair.Value(this))
+                    return false;
+
+                ChangeContent(pair.Key);
+                return true;
+            }) && Texture.Name != ContentName)
+                ChangeContent(ContentName);
+        }
 
         /// <summary>
         ///     Add a content, to this sprite, wich used, if the rule is true.
@@ -62,17 +77,6 @@ namespace GrooMono.Core.Components
             // Not drawable -> return;
             if (!Drawable)
                 return;
-
-            // No content rule active, and current content is not the original content -> change to original content.
-            if (!_contentRules.Any(pair =>
-            {
-                if (!pair.Value(this))
-                    return false;
-
-                ChangeContent(pair.Key);
-                return true;
-            }) && Texture.Name != ContentName)
-                ChangeContent(ContentName);
 
             // Draw.
             Draw(spriteBatch);

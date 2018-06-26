@@ -24,6 +24,11 @@
             _entity.Movement.Y = _entity.MovementSpeed * -1;
         }
 
+        public void Down()
+        {
+            _entity.Movement.Y = _entity.MovementSpeed;
+        }
+
         public void StopX()
         {
             _entity.Movement.X = 0;

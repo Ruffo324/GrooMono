@@ -12,7 +12,7 @@ namespace GrooMono.Games.PinguRush
     /// </summary>
     public class PinguGame : GameInstance
     {
-        private Handle _backgroundHandle;
+        private Handle _groundHandle;
         private Entity _pinguinEntity;
 
         public PinguGame()
@@ -23,20 +23,21 @@ namespace GrooMono.Games.PinguRush
 
         private void OnUpdate(GameTime gametime)
         {
-            KeyboardState state = Keyboard.GetState();
-
             // Quit the game if Escape is pressed.
-            if (state.IsKeyDown(Keys.Escape))
+            if (KeyboardState.IsKeyDown(Keys.Escape))
                 Exit();
 
             // Player jump
-            if ((state.IsKeyDown(Keys.Space) || state.IsKeyDown(Keys.Up)) && Math.Abs(_pinguinEntity.Movement.Y) < 0.1)
+            if ((KeyboardState.IsKeyDown(Keys.Space) || KeyboardState.IsKeyDown(Keys.Up)) &&
+                Math.Abs(_pinguinEntity.Movement.Y) < 0.1)
                 _pinguinEntity.Move.Up();
+            else if (KeyboardState.IsKeyDown(Keys.Down))
+                _pinguinEntity.Move.Down();
 
             // Handle left and right
-            if (state.IsKeyDown(Keys.Left))
+            if (KeyboardState.IsKeyDown(Keys.Left))
                 _pinguinEntity.Move.Left();
-            else if (state.IsKeyDown(Keys.Right))
+            else if (KeyboardState.IsKeyDown(Keys.Right))
                 _pinguinEntity.Move.Right();
             else
                 _pinguinEntity.Move.StopX();
@@ -44,12 +45,15 @@ namespace GrooMono.Games.PinguRush
 
         private void OnInitialization()
         {
-            _backgroundHandle =
+            _groundHandle =
                 new Handle("sprites/ice", 1f) {Position = new Geometric2DState(0, ScreenSize.Height * Skyratio)};
 
             // Add main (pinguin) and it's content rules.
             _pinguinEntity = new Entity("sprites/pinguin", 0.1f);
-            _pinguinEntity.AddContentRule("sprites/pinguin_jump", (entity) => Math.Abs(entity.Movement.Y) > 0.1);
+            _pinguinEntity.AddContentRule("sprites/pinguin_jump", entity => entity.Movement.Y < -0);
+            _pinguinEntity.AddContentRule("sprites/pinguin_slide",
+                entity => entity.Position.Y + entity.Size.Height >= (ScreenSize.Height * Skyratio) - 0.1
+                          && Instance.KeyboardState.IsKeyDown(Keys.Down));
         }
     }
 }
