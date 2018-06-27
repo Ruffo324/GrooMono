@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27520.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DinoJumpKi", "DinoJumpKi\DinoJumpKi.csproj", "{56C82CBD-25BE-4879-84AF-6C40F68592DE}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{2BC36C0C-4274-4968-9E6D-E0F1CD227302}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Games", "Games", "{60014B83-8E63-4C6C-89A3-2E58C92A6825}"
@@ -27,12 +25,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{56C82CBD-25BE-4879-84AF-6C40F68592DE}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{56C82CBD-25BE-4879-84AF-6C40F68592DE}.Debug|x86.ActiveCfg = Debug|x86
-		{56C82CBD-25BE-4879-84AF-6C40F68592DE}.Debug|x86.Build.0 = Debug|x86
-		{56C82CBD-25BE-4879-84AF-6C40F68592DE}.Release|Any CPU.ActiveCfg = Release|x86
-		{56C82CBD-25BE-4879-84AF-6C40F68592DE}.Release|x86.ActiveCfg = Release|x86
-		{56C82CBD-25BE-4879-84AF-6C40F68592DE}.Release|x86.Build.0 = Release|x86
 		{68C0320E-3054-4F32-8A97-6CFB5E48D3F6}.Debug|Any CPU.ActiveCfg = Debug|x86
 		{68C0320E-3054-4F32-8A97-6CFB5E48D3F6}.Debug|x86.ActiveCfg = Debug|x86
 		{68C0320E-3054-4F32-8A97-6CFB5E48D3F6}.Debug|x86.Build.0 = Debug|x86

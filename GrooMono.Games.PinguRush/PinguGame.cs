@@ -19,6 +19,8 @@ namespace GrooMono.Games.PinguRush
         internal List<Obstacle> Obstacles = new List<Obstacle>();
         private Pinguin _pinguin;
 
+        private readonly Random _random = new Random();
+
         public PinguGame()
         {
             ManagerInitialization.OnInitialization += OnInitialization;
@@ -30,6 +32,10 @@ namespace GrooMono.Games.PinguRush
             // Quit the game if Escape is pressed.
             if (keyboardState.IsKeyDown(Keys.Escape))
                 Exit();
+
+            if((int)gametime.TotalGameTime.TotalSeconds != 0)
+                if(_random.Next(1, 3) % (int)gametime.TotalGameTime.TotalSeconds == 0)
+                    Obstacles.Add(new Igloo(this));
         }
 
         private void OnInitialization()

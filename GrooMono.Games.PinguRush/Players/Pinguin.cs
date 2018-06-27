@@ -17,7 +17,11 @@ namespace GrooMono.Games.PinguRush.Players
 
             // Add main (pinguin) and some content rules.
             PinguinEntity = new Entity("sprites/pinguin", 0.1f);
-            PinguinEntity.AddContentRule("sprites/pinguin_jump", entity => entity.Movement.Y < -0);
+
+            PinguinEntity.AddContentRule("sprites/pinguin_jump", entity =>
+                entity.Movement.Y < -0 ||
+                entity.Movement.Y > 0 && !pinguGame.LastKeyboardState.IsKeyDown(Keys.Down));
+
             PinguinEntity.AddContentRule("sprites/pinguin_slide", entity =>
                 entity.Position.Y + entity.Size.Height >=
                 pinguGame.ScreenSize.Height * pinguGame.Skyratio - 0.1
