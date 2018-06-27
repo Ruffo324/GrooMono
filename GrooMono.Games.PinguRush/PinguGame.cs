@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using GrooMono.Core.Components;
 using GrooMono.Core.Components.Sprites.Models;
 using GrooMono.Core.GrooGame;
+using GrooMono.Games.PinguRush.Obstacles;
 using GrooMono.Games.PinguRush.Players;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
@@ -14,6 +16,7 @@ namespace GrooMono.Games.PinguRush
     public class PinguGame : GameInstance
     {
         internal Handle GroundHandle;
+        internal List<Obstacle> Obstacles = new List<Obstacle>();
         private Pinguin _pinguin;
 
         public PinguGame()
@@ -35,6 +38,12 @@ namespace GrooMono.Games.PinguRush
                 new Handle("sprites/ice", 1f) {Position = new Geometric2DState(0, ScreenSize.Height * Skyratio)};
 
             _pinguin = new Pinguin(this);
+            Obstacles.Add(new Igloo(this));
+        }
+
+        public void ObstacleDone(Obstacle obstacle)
+        {
+            Obstacles.Remove(obstacle);
         }
     }
 }

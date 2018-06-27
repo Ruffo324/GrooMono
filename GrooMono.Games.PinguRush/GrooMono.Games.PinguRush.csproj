@@ -43,6 +43,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Content.cs" />
+    <Compile Include="Exceptions\ObstacleException.cs" />
+    <Compile Include="Obstacles\Igloo.cs" />
+    <Compile Include="Obstacles\Obstacle.cs" />
     <Compile Include="PinguGame.cs" />
     <Compile Include="Players\Pinguin.cs" />
     <Compile Include="Program.cs" />

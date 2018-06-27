@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using GrooMono.Core.Components.Entities;
+﻿using GrooMono.Core.Components.Entities;
 using GrooMono.Core.GrooGame;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
@@ -36,6 +33,8 @@ namespace GrooMono.Core.Components
             set => _movementSpeed = ScaleToWindowSize(value);
         }
 
+        public bool OutOfWindowAllowed { get; set; } = false;
+
         private void OnUpdate(GameTime gameTime, KeyboardState keyboardState)
         {
             float elapsedTime = (float) gameTime.ElapsedGameTime.TotalSeconds;
@@ -56,12 +55,12 @@ namespace GrooMono.Core.Components
             }
 
             // Left / right
-            if (Position.X > GameInstance.Instance.ScreenSize.Width - Size.Width)
+            if (Position.X > GameInstance.Instance.ScreenSize.Width - (OutOfWindowAllowed ? 0 : Size.Width))
             {
-                Position.X = GameInstance.Instance.ScreenSize.Width - Size.Width;
+                Position.X = GameInstance.Instance.ScreenSize.Width - (OutOfWindowAllowed ? 0 : Size.Width);
                 Movement.X = 0;
             }
-            else if (Position.X < 0)
+            else if (Position.X < 0 && !OutOfWindowAllowed)
             {
                 Position.X = 0;
                 Movement.X = 0;
