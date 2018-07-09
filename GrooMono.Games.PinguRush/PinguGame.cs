@@ -15,11 +15,10 @@ namespace GrooMono.Games.PinguRush
     /// </summary>
     public class PinguGame : GameInstance
     {
+        public readonly Random Random = new Random();
+        private Pinguin _pinguin;
         internal Handle GroundHandle;
         internal List<Obstacle> Obstacles = new List<Obstacle>();
-        private Pinguin _pinguin;
-
-        private readonly Random _random = new Random();
 
         public PinguGame()
         {
@@ -29,13 +28,8 @@ namespace GrooMono.Games.PinguRush
 
         private void OnUpdate(GameTime gametime, KeyboardState keyboardState)
         {
-            // Quit the game if Escape is pressed.
             if (keyboardState.IsKeyDown(Keys.Escape))
                 Exit();
-
-            if((int)gametime.TotalGameTime.TotalSeconds != 0)
-                if(_random.Next(1, 3) % (int)gametime.TotalGameTime.TotalSeconds == 0)
-                    Obstacles.Add(new Igloo(this));
         }
 
         private void OnInitialization()
@@ -50,6 +44,7 @@ namespace GrooMono.Games.PinguRush
         public void ObstacleDone(Obstacle obstacle)
         {
             Obstacles.Remove(obstacle);
+            Obstacles.Add(new Igloo(this));
         }
     }
 }

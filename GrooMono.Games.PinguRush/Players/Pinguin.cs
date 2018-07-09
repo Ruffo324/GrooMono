@@ -1,6 +1,6 @@
 ﻿using System;
+using System.Linq;
 using GrooMono.Core.Components;
-using GrooMono.Core.GrooGame;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
@@ -8,24 +8,30 @@ namespace GrooMono.Games.PinguRush.Players
 {
     public class Pinguin
     {
-        private readonly GameInstance _pinguGame;
+        private readonly PinguGame _pinguGame;
         internal Entity PinguinEntity;
 
-        public Pinguin(GameInstance pinguGame)
+        public Pinguin(PinguGame pinguGame)
         {
             _pinguGame = pinguGame;
 
             // Add main (pinguin) and some content rules.
             PinguinEntity = new Entity("sprites/pinguin", 0.1f);
 
+            // Jumping
             PinguinEntity.AddContentRule("sprites/pinguin_jump", entity =>
                 entity.Movement.Y < -0 ||
                 entity.Movement.Y > 0 && !pinguGame.LastKeyboardState.IsKeyDown(Keys.Down));
 
+            // Slide (laying down)
             PinguinEntity.AddContentRule("sprites/pinguin_slide", entity =>
                 entity.Position.Y + entity.Size.Height >=
                 pinguGame.ScreenSize.Height * pinguGame.Skyratio - 0.1
                 && pinguGame.LastKeyboardState.IsKeyDown(Keys.Down));
+
+            // Dead
+            PinguinEntity.AddContentRule("sprites/pinguin_died",
+                entity => pinguGame.Obstacles.Any(obstc => entity.CollisionWith(obstc.Entity)));
 
             // Listen to events.
             pinguGame.ManagerUpdate.OnUpdate += OnUpdate;

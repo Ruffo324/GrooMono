@@ -1,4 +1,6 @@
 ﻿using System.Drawing;
+using System.Net.Mime;
+using System.Windows.Forms;
 using GrooMono.Core.Components.Sprites.Models;
 using GrooMono.Core.GrooGame;
 using Microsoft.Xna.Framework;
@@ -10,7 +12,7 @@ namespace GrooMono.Core.Components
 {
     public class Sprite2D
     {
-        private static float _hitboxScaleDefault = .5f;
+        private static float _hitboxScaleDefault = ScaleToWindowSize(0.1f);
         private readonly float _hitboxscale = _hitboxScaleDefault;
         public readonly string ContentName;
         public readonly float Scale;
@@ -63,14 +65,15 @@ namespace GrooMono.Core.Components
 
         public bool CollisionWith(Sprite2D sprite2D)
         {
-            return !(Position.X + Texture.Width * Scale * _hitboxscale <
-                     sprite2D.Position.X - sprite2D.Texture.Width * sprite2D.Scale) &&
-                   !(Position.Y + Texture.Height * Scale * _hitboxscale <
-                     sprite2D.Position.Y - sprite2D.Texture.Height * sprite2D.Scale) &&
-                   !(Position.X - Texture.Width * Scale * _hitboxscale >
-                     sprite2D.Position.X + sprite2D.Texture.Width * sprite2D.Scale) &&
-                   !(Position.Y - Texture.Height * Scale * _hitboxscale >
-                     sprite2D.Position.Y + sprite2D.Texture.Height * sprite2D.Scale);
+            if (Position.X <= sprite2D.Position.X + sprite2D.Size.Width && Position.X >= sprite2D.Position.X)
+                if ((Position.Y + Size.Height >= sprite2D.Position.Y + sprite2D.Size.Height &&
+                     Position.Y <= sprite2D.Position.Y + sprite2D.Size.Height))
+                {
+                    Application.DoEvents();
+                    return true;
+                }
+
+            return false;
         }
 
         /// <summary>

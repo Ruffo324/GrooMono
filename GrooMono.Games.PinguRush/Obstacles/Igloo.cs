@@ -6,7 +6,7 @@ namespace GrooMono.Games.PinguRush.Obstacles
     public class Igloo : Obstacle
     {
         public Igloo(PinguGame pinguGame) : base(pinguGame,
-            new Entity("sprites/Igloo", 0.07f) {OutOfWindowAllowed = true})
+            new Entity("sprites/Igloo", 0.07f) {OutOfWindowAllowed = true, MovementSpeed = 500f})
         {
         }
     }

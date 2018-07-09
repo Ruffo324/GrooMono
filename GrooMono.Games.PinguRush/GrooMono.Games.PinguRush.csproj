@@ -63,8 +63,12 @@
     <Content Include="Content\sprites\gameOver.png" />
     <Content Include="Content\sprites\grass.png" />
     <Content Include="Content\sprites\ice.png" />
+    <Content Include="Content\sprites\Igloo.png" />
     <Content Include="Content\sprites\jump.png" />
     <Content Include="Content\sprites\pinguin.png" />
+    <Content Include="Content\sprites\pinguin_died.png" />
+    <Content Include="Content\sprites\pinguin_jump.png" />
+    <Content Include="Content\sprites\pinguin_slide.png" />
     <Content Include="Content\sprites\startGame.png" />
     <Content Include="Content\sprites\wall.png" />
     <Content Include="Icon.ico" />
